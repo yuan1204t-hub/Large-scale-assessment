@@ -52,7 +52,8 @@ Before running any script, you must manually update the Input/Output file paths 
 
 🎓 Citation
 If you use this code in your research, please cite:
-[Yuan Tao]. (2026). Large-scale assessment of regression modeling practices in phytomedicine extraction process optimization. [iScience]. DOI: 10.5281/zenodo.XXXXXXX
+[Yuan Tao]. (2026). Large-scale assessment of regression modeling practices in phytomedicine extraction process optimization. [iScience]. DOI: 10.5281/zenodo.18712471
 
 📄 License
+
 This project is licensed under the MIT License.

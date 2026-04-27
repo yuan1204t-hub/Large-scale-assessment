@@ -268,7 +268,7 @@ Most outputs are saved as Excel files or image files in the user-defined output 
 If you use this repository or adapt the workflow in your own research, please cite the associated study or archived code package:
 
 ```text
-Tao, Y. (2026). Large-scale assessment of regression modeling practices in phytomedicine extraction process optimization. Zenodo. (https://doi.org/10.5281/zenodo.19789990)
+Tao, Y. (2026). Large-scale assessment of regression modeling practices in phytomedicine extraction process optimization. Zenodo. (https://doi.org/10.5281/zenodo.19819474)
 ```
 
 If the related manuscript has been formally published, please cite the final journal article instead of or in addition to the archived code package.

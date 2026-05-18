@@ -1,174 +1,259 @@
-# Large-scale Assessment of Regression Modeling Practices in Phytomedicine Extraction Process Optimization
+# Large-scale Assessment of Model Selection and Optimization Stability in Phytomedicine Extraction Processes
 
-This repository provides the complete Python-based analysis workflow for a large-scale assessment of regression modeling practices in phytomedicine extraction process optimization. The framework was designed to evaluate the explanatory performance, predictive reliability, diagnostic validity, and optimization stability of different regression modeling strategies commonly used in extraction process studies.
+This repository provides the complete dataset, supplementary materials, and analysis workflow for a large-scale benchmark study of model selection in phytomedicine extraction-process optimization.
 
-The repository includes scripts for data preprocessing, regression model evaluation, global model optimization, cross-validation analysis, residual diagnostics, and stability assessment of model-predicted optimal extraction conditions.
+The study evaluates whether different candidate models provide reliable fitting performance, cross-validated predictive ability, diagnostic adequacy, and stable model-predicted optimization conclusions. The analytical framework includes traditional regression models, machine learning models, optimization-stability analysis, machine-learning-only sensitivity analysis, and stratified robustness analysis.
 
 ---
 
 ## 1. Project Overview
 
-Phytomedicine extraction process optimization is commonly based on small-sample experimental designs, such as Box-Behnken design, central composite design, and other response surface methodology designs. In many studies, the full quadratic response surface model is used as the default modeling strategy. However, a model with better apparent fitting performance does not necessarily provide better predictive reliability or more stable optimization conclusions.
+Phytomedicine extraction-process optimization is commonly based on small-sample experimental designs, such as Box-Behnken design, central composite design, and other response surface methodology designs. In many studies, full quadratic regression is used as the default modeling strategy. However, high training-set goodness of fit does not necessarily indicate reliable prediction or stable optimization recommendations.
 
-This project aims to compare multiple candidate modeling strategies under a unified evaluation framework. The workflow includes:
+This project was designed to examine model selection as a decision-oriented problem. Instead of evaluating models only by apparent fitting performance, the workflow jointly considers:
 
-- data extraction and preprocessing;
-- regression model construction and comparison;
-- model-level and coefficient-level statistical evaluation;
-- leave-one-out cross-validation;
-- residual diagnostic analysis;
-- global optimization of model-predicted extraction conditions;
-- stability assessment of predicted optimal responses and factor combinations.
+- overall fitting performance;
+- leave-one-out cross-validated predictive ability;
+- residual diagnostics and error stability;
+- consistency of model-predicted optimal responses;
+- consistency of model-predicted optimal factor combinations;
+- sensitivity of conclusions in structurally excluded datasets;
+- robustness of the main conclusions across dataset strata.
+
+The main comparison includes 1,148 datasets that met the structural requirements for unified quadratic regression modeling. An additional 251 structurally excluded datasets were retained for a machine-learning-only sensitivity analysis.
 
 ---
 
 ## 2. Repository Structure
 
-The repository is organized according to the main analytical stages of the study.
+The repository is organized according to the data and supplementary materials reported in the study.
 
 ```text
 Large-scale-assessment/
 │
-├── 01_Data_Preprocessing/
-│   └── Scripts for extracting, cleaning, and preparing datasets.
+├── Additional Data (n=251)/
+│   └── Structurally excluded datasets used for the machine-learning-only
+│       sensitivity analysis.
 │
-├── 02_Regression_Analysis/
-│   └── Scripts for model fitting, model comparison, and statistical evaluation.
+├── Data (n=1148)/
+│   └── Main analytical datasets used for the complete M0-M6 model comparison.
 │
-├── 03_Global_Optimization/
-│   └── Scripts for model selection, cross-validation, diagnostic analysis,
-│       and global optimization.
+├── Figure S1. Literature screening and dataset construction.png
 │
-├── 04_Stability_Analysis/
-│   └── Scripts for evaluating the stability of predicted optimal responses
-│       and optimal factor combinations.
+├── Figure S2. Distribution characteristics and pairwise comparisons.png
 │
-├── Data/
-│   └── Data.zip
-│       Complete dataset used in this study.
+├── Figure S3. Model diagnostics and pairwise comparisons.png
+│
+├── Summary Table.xlsx
+│   └── Main summary workbook containing key model-comparison results.
+│
+├── Table S1 Shapiro_Wilk_normality_test_overall_fitting_metrics.xlsx
+│
+├── Table S2 Shapiro_Wilk_predictive_ability_metrics.xlsx
+│
+├── Table S3 Shapiro_Wilk_diagnostic_metrics.xlsx
+│
+├── Table S4 GPR_supplementary_tables.xlsx
+│
+├── Table S5 Comparison of structural characteristics.xlsx
+│
+├── Table S6 Machine-learning-only sensitivity analysis.xlsx
+│
+├── Table S7 Stratified robustness analysis.xlsx
+│
+├── Table S8 dataset 1780.xlsx
 │
 ├── requirements.txt
 ├── LICENSE
-├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 3. Main Analytical Modules
+## 3. Dataset Description
 
-### 3.1 Data Preprocessing
+### 3.1 Main analytical dataset
 
-The scripts in `01_Data_Preprocessing` are used to prepare the raw experimental datasets for batch analysis.
+The folder `Data (n=1148)` contains the datasets used for the complete seven-model comparison. These datasets satisfied the structural requirement for unified quadratic regression modeling.
 
-Main functions include:
-
-- reading Excel files in batches;
-- extracting independent variables and response variables;
-- checking data structure and missing values;
-- standardizing file formats for subsequent regression analysis.
-
-By default, each dataset should be arranged as follows:
+Each dataset contains:
 
 ```text
-Column 1 to Column n-1: independent variables
-Last column: response variable
+Column 1 to Column n-1: extraction-process factors
+Last column: continuous response variable
+```
+
+The main analytical dataset was used to evaluate models M0-M6 in terms of fitting performance, cross-validation performance, diagnostics, and optimization stability.
+
+### 3.2 Additional structurally excluded dataset
+
+The folder `Additional Data (n=251)` contains datasets that did not meet the structural requirement for full quadratic regression comparison. These datasets were not forced into the complete M0-M6 framework.
+
+Instead, they were used for a machine-learning-only sensitivity analysis involving M3-M6. This analysis was designed to clarify the applicability boundary of the main conclusions.
+
+---
+
+## 4. Candidate Models
+
+Seven candidate models were evaluated in the main analysis.
+
+| Model | Description |
+|---|---|
+| M0 | Full quadratic regression model |
+| M1 | Globally selected parsimonious regression model based on corrected R² |
+| M2 | Globally selected parsimonious regression model based on Mallows-type Cr |
+| M3 | Quadratic Ridge regression |
+| M4 | Support vector regression |
+| M5 | Partial least squares regression |
+| M6 | Gaussian process regression |
+
+M0-M2 were constructed within the same full quadratic candidate-term space. M3-M6 were included as machine learning models suitable for small-sample, low-dimensional, continuous-response prediction.
+
+---
+
+## 5. Main Analytical Workflow
+
+The complete workflow includes the following analytical stages.
+
+```text
+Data extraction and preprocessing
+        ↓
+Structural eligibility assessment
+        ↓
+Complete M0-M6 model comparison for 1,148 datasets
+        ↓
+Overall fitting-performance analysis
+        ↓
+Leave-one-out cross-validation analysis
+        ↓
+Model diagnostic analysis
+        ↓
+Optimization-stability analysis
+        ↓
+Machine-learning-only sensitivity analysis for 251 excluded datasets
+        ↓
+Stratified robustness analysis
 ```
 
 ---
 
-### 3.2 Regression Analysis
+## 6. Main Analysis
 
-The scripts in `02_Regression_Analysis` and related subfolders perform regression model fitting and statistical evaluation.
+The main analysis was conducted on the 1,148 datasets in `Data (n=1148)`.
 
-This part includes:
+It includes:
 
-- construction of full quadratic regression models;
-- extraction of model-level evaluation metrics;
-- summary of fitting performance;
-- comparison of alternative candidate models;
-- normality tests and significance tests for model comparison.
+- fitting M0-M6 for each dataset;
+- calculating fitting metrics, including R², RMSE, and MAE;
+- calculating leave-one-out cross-validation metrics, including Q², RMSECV, and MAECV;
+- evaluating diagnostic metrics, including residual normality, residual mean deviation, maximum absolute residual, and AE-IQR;
+- identifying model-predicted optimal responses and optimal factor combinations;
+- comparing optimization stability between the three-model and seven-model settings.
 
-Typical metrics include:
-
-- coefficient of determination;
-- adjusted or modified coefficient of determination;
-- root mean squared error;
-- mean absolute error;
-- model-level p-value;
-- coefficient-level p-values;
-- number of selected predictors.
-
----
-
-### 3.3 Cross-validation and Diagnostic Evaluation
-
-The cross-validation and diagnostic scripts evaluate whether the fitted models have reliable predictive ability and acceptable residual behavior.
-
-This module includes:
-
-- leave-one-out cross-validation;
-- calculation of Q², RMSECV, and MAECV;
-- Shapiro-Wilk normality testing;
-- Friedman tests and Wilcoxon paired comparisons;
-- residual bias testing;
-- Cook's distance analysis;
-- maximum error and maximum absolute error evaluation.
-
-The purpose of this module is to avoid relying only on apparent goodness-of-fit and to provide a more comprehensive assessment of model reliability.
-
----
-
-### 3.4 Global Optimization and Stability Analysis
-
-The scripts in `03_Global_Optimization` and `04_Stability_Analysis` are used to estimate the model-predicted optimal extraction conditions and evaluate the stability of optimization conclusions.
-
-This module includes:
-
-- global grid search within the experimental factor space;
-- identification of predicted optimal response values;
-- identification of optimal factor combinations;
-- comparison of optimal conditions across different models;
-- calculation of coefficient of variation for predicted optimal responses;
-- assessment of the consistency of model-based process recommendations.
-
-The same search space and grid resolution are applied to all candidate models to ensure comparability.
-
----
-
-## 4. Model Types
-
-The study compares multiple regression modeling strategies. The main model categories include:
-
-- `M0`: full quadratic regression model;
-- `M1`: globally selected regression subset model prioritizing explanatory adequacy;
-- `M2`: globally selected regression subset model prioritizing structural parsimony;
-- `M3-M6`: additional candidate models or machine-learning-based comparison models, depending on the specific analytical section.
-
-The exact scripts for each model are provided in the corresponding folders.
-
----
-
-## 5. Dataset Availability
-
-The complete dataset supporting this study is archived in:
+The main summary results are provided in:
 
 ```text
-Data/Data.zip
+Summary Table.xlsx
 ```
-
-To reproduce the analysis:
-
-1. Download or clone this repository.
-2. Extract `Data.zip`.
-3. Update the input and output paths in the relevant Python scripts.
-4. Run the scripts in the recommended order.
-
-To analyze your own data, please format each dataset as an Excel file with independent variables in the first columns and the response variable in the last column.
 
 ---
 
-## 6. Installation
+## 7. Machine-learning-only Sensitivity Analysis
+
+The machine-learning-only sensitivity analysis was conducted on the 251 structurally excluded datasets in:
+
+```text
+Additional Data (n=251)/
+```
+
+These datasets were excluded from the complete M0-M6 comparison because they did not provide sufficient structural support for estimating the full quadratic regression model. However, they were still informative for examining whether the main model-applicability pattern changed in structurally limited datasets.
+
+The sensitivity analysis evaluated:
+
+- M3: quadratic Ridge regression;
+- M4: support vector regression;
+- M5: partial least squares regression;
+- M6: Gaussian process regression.
+
+The main metrics were:
+
+- Q²;
+- RMSECV;
+- MAECV.
+
+The corresponding supplementary table is:
+
+```text
+Table S6 Machine-learning-only sensitivity analysis.xlsx
+```
+
+A recommended script name for reproducing this part is:
+
+```text
+run_ml_sensitivity_analysis.py
+```
+
+---
+
+## 8. Stratified Robustness Analysis
+
+The stratified robustness analysis was conducted to examine whether the main conclusions were consistent across different dataset structures.
+
+The analysis summarized model performance and optimization-stability results by:
+
+- experimental design type;
+- sample-size group;
+- number-of-factors group.
+
+The stratified analysis includes:
+
+- subgroup sample counts;
+- model-level Q², RMSECV, MAECV, and AE-IQR summaries;
+- model rankings within each subgroup;
+- three-model and seven-model Response CV summaries;
+- three-model and seven-model Average Factor CV summaries;
+- compact tables for reporting stratified robustness in the manuscript.
+
+The corresponding supplementary table is:
+
+```text
+Table S7 Stratified robustness analysis.xlsx
+```
+
+A recommended script name for reproducing this part is:
+
+```text
+run_stratified_robustness_summary.py
+```
+
+---
+
+## 9. Supplementary Tables and Figures
+
+### 9.1 Figures
+
+| File | Description |
+|---|---|
+| Figure S1 | Literature screening, dataset exclusion, and analytical-set construction |
+| Figure S2 | Supplementary model-comparison results for traditional regression models |
+| Figure S3 | Supplementary diagnostic results and pairwise comparisons |
+
+### 9.2 Supplementary tables
+
+| File | Description |
+|---|---|
+| Table S1 | Shapiro-Wilk normality test results for fitting metrics |
+| Table S2 | Shapiro-Wilk normality test results for predictive metrics |
+| Table S3 | Shapiro-Wilk normality test results for diagnostic metrics |
+| Table S4 | Supplementary GPR analysis |
+| Table S5 | Comparison of structural characteristics between included and excluded datasets |
+| Table S6 | Machine-learning-only sensitivity analysis |
+| Table S7 | Stratified robustness analysis |
+| Table S8 | Worked-example dataset 1780 |
+
+---
+
+## 10. Installation
 
 Python 3.8 or later is recommended.
 
@@ -188,38 +273,17 @@ Main Python packages used in this project include:
 - openpyxl
 - matplotlib
 
-The complete package list is provided in `requirements.txt`.
-
----
-
-## 7. Usage
-
-Because many scripts rely on intermediate outputs generated by earlier steps, the analysis should be performed in the following order:
+The complete package list is provided in:
 
 ```text
-01_Data_Preprocessing
-        ↓
-02_Regression_Analysis
-        ↓
-03_Global_Optimization
-        ↓
-04_Stability_Analysis
+requirements.txt
 ```
-
-Before running each script, please check the path configuration section, usually located near the end of the file:
-
-```python
-if __name__ == "__main__":
-    # Path configuration
-    input_dir = r"..."
-    output_dir = r"..."
-```
-
-You should replace these paths with the corresponding directories on your own computer.
 
 ---
 
-## 8. Recommended Workflow
+## 11. Usage
+
+Before running the scripts, update the input and output paths in the user settings section of each script.
 
 A typical workflow is:
 
@@ -227,55 +291,63 @@ A typical workflow is:
 # Step 1: Install dependencies
 pip install -r requirements.txt
 
-# Step 2: Extract the dataset
-unzip Data/Data.zip -d Data/
+# Step 2: Run the main model-comparison workflow
+python run_main_model_comparison.py
 
-# Step 3: Run preprocessing scripts
-python 01_Data_Preprocessing/your_script_name.py
+# Step 3: Run the machine-learning-only sensitivity analysis
+python run_ml_sensitivity_analysis.py
 
-# Step 4: Run regression analysis scripts
-python 02_Regression_Analysis/your_script_name.py
-
-# Step 5: Run global optimization scripts
-python 03_Global_Optimization/your_script_name.py
-
-# Step 6: Run stability analysis scripts
-python 04_Stability_Analysis/your_script_name.py
+# Step 4: Run the stratified robustness summary
+python run_stratified_robustness_summary.py
 ```
 
-Please note that script names may vary according to the specific analysis task.
+Script names may differ depending on how the analysis files are organized. The key requirement is that the input folders and output paths should be correctly specified before running each script.
 
 ---
 
-## 9. Output Files
+## 12. Expected Output Files
 
-The scripts generate several types of output files, including:
+The scripts generate Excel workbooks and figures, including:
 
-- model metric summary tables;
+- dataset-level model results;
+- model-level summary statistics;
 - cross-validation result tables;
-- residual diagnostic result tables;
-- model comparison statistics;
-- optimal response summaries;
-- optimal factor combination summaries;
-- figures for model comparison and diagnostic visualization.
+- diagnostic result tables;
+- optimization-stability summaries;
+- best-model count summaries;
+- stratified robustness summaries;
+- supplementary figures and tables.
 
-Most outputs are saved as Excel files or image files in the user-defined output directories.
+Most outputs are saved as `.xlsx` files, with figures saved as image files.
 
 ---
 
-## 10. Citation
+## 13. Reproducibility Notes
 
-If you use this repository or adapt the workflow in your own research, please cite the associated study or archived code package:
+To reproduce the analysis, please ensure that:
+
+1. all datasets are formatted with predictors in the first columns and the response variable in the final column;
+2. the dataset folders are not mixed with previous result files;
+3. path settings in each script are updated before execution;
+4. required Python packages are installed;
+5. intermediate outputs from earlier analytical steps are available before running summary scripts.
+
+The stratified robustness script does not refit models. It summarizes model outputs that have already been generated. The machine-learning sensitivity analysis script refits M3-M6 models for the structurally excluded datasets.
+
+---
+
+## 14. Citation
+
+If you use this repository or adapt the workflow in your own research, please cite the associated study or archived code package.
 
 ```text
-Tao, Y. (2026). Large-scale assessment of regression modeling practices in phytomedicine extraction process optimization. Zenodo. (https://doi.org/10.5281/zenodo.19789990)
+Tao, Y. (2026). Large-scale assessment of model selection and optimization stability in phytomedicine extraction processes. Zenodo.
 ```
 
 If the related manuscript has been formally published, please cite the final journal article instead of or in addition to the archived code package.
 
 ---
 
-## 11. License
+## 15. License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
-****
